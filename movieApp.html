@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width", initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Movie Ratings</h1>
+    <form>
+        <div>Title:<input type="text" id="title">
+        </div>
+        <div>Rating:<input type="number" min="0" max="10" id="rating">
+        </div> 
+        <div><button type="submit" style="background-color:rgba(0, 0, 255, 0.321);color:white">Submit</button>
+        </div>
+    </form>
+    <br>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Rating</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <br>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script> 
+    let itemNo = 0;
+    let list = [];
+    $("form").on("submit",function(e) {
+        e.preventDefault();
+        itemNo++;
+        let name = $("input").eq(0).val();
+        let rating = $("input").eq(1).val();
+        let data = {name,rating,itemNo};
+        list.push(data);
+        let newRow = function (list) {
+            return `
+              <tr>
+                <td>${data.name}</td>
+                <td>${data.rating}</td>
+                <td>
+                    <button class='delete'style='background-color:red;color:white'>Delete</button>
+                </td>
+              </tr>
+            `;
+        }
+        $("tbody").append(newRow);
+        
+        let form = document.querySelector("form");
+        form.reset();
+       
+        
+        
+        $(".delete").on("click",function(e) {
+            e.preventDefault();
+            $(e.target).parent().parent().remove();
+            })
+    })
+        
+
+</script>
+</html>
